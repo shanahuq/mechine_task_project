@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mechine_task_project/easy_card.dart';
+import 'package:mechine_task_project/ui_screnns/easy_card.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mechine_task_project/easy_card_drawer.dart';
+import 'package:mechine_task_project/ui_screnns/easy_card_drawer.dart';
+import 'package:mechine_task_project/ui_screnns/stc_page.dart';
 
 class EasyCard extends StatefulWidget {
   const EasyCard({super.key});
@@ -21,21 +22,30 @@ class _EasyCardState extends State<EasyCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const EasyCardDrawer(),
+
       appBar: AppBar(
         backgroundColor: Colors.red,
-        leading: Icon(Icons.menu, color: Colors.white),
-        title: Center(
-          child: Text(
-            'EASY CARD',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 18.sp,
-              color: Colors.white,
-            ),
+        elevation: 0,
+        leading: Builder(
+          builder:
+              (context) => IconButton(
+                icon: const Icon(Icons.menu, color: Colors.white),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
+        ),
+        centerTitle: true,
+        title: Text(
+          'EASY CARD',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 18.sp,
+            color: Colors.white,
           ),
         ),
       ),
-      drawer: const EasyCardDrawer(),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -161,7 +171,14 @@ class _EasyCardState extends State<EasyCard> {
                 ),
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      if (index == 3) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => StcPage()),
+                        );
+                      }
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white,

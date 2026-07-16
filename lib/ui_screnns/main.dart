@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mechine_task_project/easy_card_drawer.dart';
-import 'package:mechine_task_project/log_in_page.dart';
+import 'package:mechine_task_project/ui_screnns/easy_card_drawer.dart';
+import 'package:mechine_task_project/ui_screnns/log_in_page.dart';
+import 'package:mechine_task_project/ui_screnns/stc_page.dart';
+import 'package:mechine_task_project/ui_screnns/stc_price_page.dart';
+import 'package:mechine_task_project/ui_screnns/wallet_history.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +26,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        home: const EasyCardDrawer(),
+        home: const LogInPage(),
       ),
     );
   }
