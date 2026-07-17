@@ -89,7 +89,7 @@ class _StcPageState extends State<StcPage> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 16.w,
                   mainAxisSpacing: 16.h,
-                  childAspectRatio: 0.80,
+                  childAspectRatio: 0.70,
                 ),
                 itemBuilder: (context, index) {
                   final item = comboPackages[index];
@@ -140,7 +140,7 @@ class _StcPageState extends State<StcPage> {
                           const Spacer(),
 
                           SizedBox(
-                            width: 90.w,
+                            width: 100.w,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.yellow,

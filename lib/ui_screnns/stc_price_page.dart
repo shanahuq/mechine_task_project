@@ -170,7 +170,7 @@ class _StcPricePageState extends State<StcPricePage> {
                     SizedBox(height: 30.h),
 
                     SizedBox(
-                      width: 80.w,
+                      width: 90.w,
                       height: 40.h,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(

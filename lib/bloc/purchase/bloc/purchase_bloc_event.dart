@@ -1,4 +1,12 @@
-part of 'purchase_bloc_bloc.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-sealed class PurchaseBlocEvent {}
+abstract class PurchaseBlocEvent extends Equatable {
+  const PurchaseBlocEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class GetPurchase   extends PurchaseBlocEvent {
+  const GetPurchase  ();
+}

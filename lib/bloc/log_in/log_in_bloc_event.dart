@@ -1,4 +1,21 @@
-part of 'log_in_bloc_bloc.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-sealed class LogInBlocEvent {}
+abstract class LoginEvent extends Equatable {
+  const LoginEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class LoginButtonPressed extends LoginEvent {
+  final String phone;
+  final String password;
+
+  const LoginButtonPressed({
+    required this.phone,
+    required this.password,
+  });
+
+  @override
+  List<Object> get props => [phone, password];
+}

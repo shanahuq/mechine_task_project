@@ -1,4 +1,12 @@
-part of 'user_bloc_bloc.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-sealed class UserBlocEvent {}
+abstract class UserEvent extends Equatable {
+  const UserEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class GetUser extends UserEvent {
+  const GetUser();
+}

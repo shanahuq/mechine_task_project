@@ -1,4 +1,12 @@
-part of 'operatoe_bloc_bloc.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-sealed class OperatoeBlocEvent {}
+abstract class OperatoeBlocEvent extends Equatable {
+  const OperatoeBlocEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class GetUser extends OperatoeBlocEvent {
+  const GetUser();
+}

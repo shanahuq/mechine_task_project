@@ -1,4 +1,12 @@
-part of 'plans_bloc_bloc.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-sealed class PlansBlocEvent {}
+abstract class PlansBlocEvent extends Equatable {
+  const PlansBlocEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class GetPlans  extends PlansBlocEvent {
+  const GetPlans ();
+}
