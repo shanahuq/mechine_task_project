@@ -5,6 +5,7 @@ import 'package:mechine_task_project/bloc/plans/bloc/plans_bloc_event.dart';
 import 'package:mechine_task_project/bloc/plans/bloc/plans_bloc_state.dart';
 import 'package:mechine_task_project/repository/api%20files/plans_api.dart';
 import 'package:mechine_task_project/repository/models/plan_model.dart';
+import 'package:mechine_task_project/repository/models/purchase_model.dart';
 
 class PlansBloc extends Bloc<PlansBlocEvent, PlansBlocState> {
   final PlansApi plansApi;
@@ -22,9 +23,10 @@ class PlansBloc extends Bloc<PlansBlocEvent, PlansBlocState> {
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        final user = PlansModel.fromJson(data);
+        final List<PlansModel> plans =
+            (data as List).map((json) => PlansModel.fromJson(json)).toList();
 
-        emit(PlansSuccess(user));
+        emit(PlansSuccess(plans));
       } else {
         emit(PlansFailure(data["message"] ?? "Failed to load user"));
       }

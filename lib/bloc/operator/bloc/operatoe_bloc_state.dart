@@ -13,12 +13,11 @@ class OperatorInitial extends OperatoeBlocState {}
 class OperartorLoading extends OperatoeBlocState {}
 
 class OperatorSuccess extends OperatoeBlocState {
-  final OperatorModel user;
-
-  const OperatorSuccess(this.user);
+final List<OperatorModel> operators;
+  const OperatorSuccess(this.operators);
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [operators];
 }
 
 class OperatorFailure extends OperatoeBlocState {

@@ -7,6 +7,6 @@ abstract class OperatoeBlocEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetUser extends OperatoeBlocEvent {
-  const GetUser();
+class GetOperator extends OperatoeBlocEvent {
+  const GetOperator();
 }

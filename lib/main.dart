@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mechine_task_project/bloc/log_in/log_in_bloc_bloc.dart';
+import 'package:mechine_task_project/bloc/operator/bloc/operatoe_bloc_bloc.dart';
+import 'package:mechine_task_project/bloc/plans/bloc/plans_bloc_bloc.dart';
 import 'package:mechine_task_project/bloc/user/bloc/user_bloc_bloc.dart';
 import 'package:mechine_task_project/repository/api%20files/login_api.dart';
+import 'package:mechine_task_project/repository/api%20files/operators_api.dart';
+import 'package:mechine_task_project/repository/api%20files/plans_api.dart';
 import 'package:mechine_task_project/repository/api%20files/user_api.dart';
 import 'package:mechine_task_project/ui_screnns/easy_card_drawer.dart';
 import 'package:mechine_task_project/ui_screnns/log_in_page.dart';
@@ -18,6 +22,8 @@ void main() {
         BlocProvider<LoginBloc>(create: (_) => LoginBloc(LoginApi())),
 
         BlocProvider<UserBloc>(create: (_) => UserBloc(UserApi())),
+        BlocProvider<OperatorBloc>(create: (_) => OperatorBloc(OperatorsApi())),
+        BlocProvider<PlansBloc>(create: (_) => PlansBloc(PlansApi())),
       ],
       child: const MyApp(),
     ),

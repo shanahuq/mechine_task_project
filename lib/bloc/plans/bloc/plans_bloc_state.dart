@@ -13,12 +13,12 @@ class PlansInitial extends PlansBlocState {}
 class PlansLoading extends PlansBlocState {}
 
 class PlansSuccess extends PlansBlocState {
-  final PlansModel user;
+  final List<PlansModel> plans;
 
-  const PlansSuccess(this.user);
+  const PlansSuccess(this.plans);
 
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [plans];
 }
 
 class PlansFailure extends PlansBlocState {

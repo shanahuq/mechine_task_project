@@ -5,9 +5,9 @@ import '../api/Api_client.dart';
 class OperatorsApi {
   final ApiClient apiClient = ApiClient();
 
-  Future<Response> getUser() async {
+  Future<Response> getOperator() async {
     return await apiClient.invokeAPI(
-      "http://easycard.rootsys.in/api/cards/datacard/operators ",
+      "http://easycard.rootsys.in/api/cards/datacard/operators",
       "GET",
       null,
     );
