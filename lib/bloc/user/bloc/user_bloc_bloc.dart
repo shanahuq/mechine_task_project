@@ -20,6 +20,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       final response = await userApi.getUser();
 
+      print("USER STATUS: ${response.statusCode}");
+      print("USER RESPONSE: ${response.body}");
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {

@@ -31,7 +31,7 @@ class Data {
     dynamic shopName;
     dynamic retailerId;
     dynamic terminalId;
-    int? profitPendingBalance;
+    String? profitPendingBalance;
 
     Data({this.name, this.mobile, this.email, this.createdAt, this.walletBalance, this.permissions, this.deviceModelNumber, this.deviceSerialNumber, this.crNumber, this.location, this.shopName, this.retailerId, this.terminalId, this.profitPendingBalance});
 

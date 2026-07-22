@@ -10,26 +10,29 @@ class PurchaseBloc extends Bloc<PurchaseBlocEvent, PurchaseBlocState> {
   final PurchaseApi purchaseApi;
 
   PurchaseBloc(this.purchaseApi) : super(PurchaseInitial()) {
-   on<GetPurchase>(_getPurchase);
+    on<GetPurchase>(_getPurchase);
   }
 
- Future<void> _getPurchase(
+  Future<void> _getPurchase(
     GetPurchase event,
-    Emitter<PurchaseBlocState> emit
-) async {
+    Emitter<PurchaseBlocState> emit,
+  ) async {
     emit(PurchaseLoading());
 
     try {
-      final response = await purchaseApi.getPurchase();
+      final response = await purchaseApi.createPurchase(
+        planId: event.planId,
+        quantity: event.quantity,
+      );
 
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        final user = PurchaseModel.fromJson(data);
+        final purchase = PurchaseModel.fromJson(data);
 
-        emit(PurchaseSuccess(user));
+        emit(PurchaseSuccess(purchase));
       } else {
-        emit(PurchaseFailure(data["message"] ?? "Failed to load user"));
+        emit(PurchaseFailure(data["message"] ?? "Purchase failed"));
       }
     } catch (e) {
       emit(PurchaseFailure(e.toString()));

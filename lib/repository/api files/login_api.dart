@@ -1,23 +1,19 @@
-import 'dart:convert';
-
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 import '../api/Api_client.dart';
 
 class LoginApi {
-  ApiClient apiClient = ApiClient();
+  final ApiClient apiClient = ApiClient();
 
-  Future<Response> login(
-    String phone,
-    String password,
-  ) async {
+  Future<http.Response> login(String phone, String password) async {
     return await apiClient.invokeAPI(
-      "http://easycard.rootsys.in/api/login",
+      "https://easycard.rootsys.in/api/login",
       "POST",
-      jsonEncode({
-        "phone": phone,
+      {
+        "mobile": phone,
         "password": password,
-      }),
+        "device_name": "oneplus",
+      },
     );
   }
 }

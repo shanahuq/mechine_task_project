@@ -179,7 +179,9 @@ class _StcPageState extends State<StcPage> {
                                         context,
                                         MaterialPageRoute(
                                           builder:
-                                              (context) => const StcPricePage(),
+                                              (context) => StcPricePage(
+                                                planId: plan.id!,
+                                              ),
                                         ),
                                       );
                                     },

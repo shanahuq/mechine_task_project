@@ -7,7 +7,7 @@ class UserApi {
 
   Future<Response> getUser() async {
     return await apiClient.invokeAPI(
-      "http://easycard.rootsys.in/api/user",
+      "https://easycard.rootsys.in/api/user",
       "GET",
       null,
     );

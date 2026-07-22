@@ -21,6 +21,8 @@ class OperatorBloc extends Bloc<OperatoeBlocEvent, OperatoeBlocState> {
 
     try {
       final response = await operatorsApi.getOperator();
+      print("OPERATOR STATUS: ${response.statusCode}");
+      print("OPERATOR RESPONSE: ${response.body}");
 
       final data = jsonDecode(response.body);
 

@@ -279,6 +279,10 @@ class _EasyCardState extends State<EasyCard> {
                       ),
                       itemBuilder: (context, index) {
                         final operator = operators[index];
+
+                        print('Operator ID: ${operator.id}');
+                        print('Operator Title: ${operator.title}');
+                        print('Operator Image: ${operator.imageLink}');
                         return InkWell(
                           onTap: () {
                             print('Operator ID: ${operator.id}');
@@ -301,10 +305,16 @@ class _EasyCardState extends State<EasyCard> {
                             child: Padding(
                               padding: EdgeInsets.all(12.w),
                               child: Image.network(
-                                operators[index].imageLink ?? '',
+                                operator.imageLink ?? '',
                                 fit: BoxFit.contain,
                                 errorBuilder: (context, error, stackTrace) {
-                                  return const Icon(Icons.image_not_supported);
+                                  print('IMAGE ERROR: $error');
+                                  print('IMAGE URL: ${operator.imageLink}');
+
+                                  return const Icon(
+                                    Icons.image_not_supported,
+                                    size: 50,
+                                  );
                                 },
                               ),
                             ),

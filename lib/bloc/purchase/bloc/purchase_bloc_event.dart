@@ -7,6 +7,18 @@ abstract class PurchaseBlocEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetPurchase   extends PurchaseBlocEvent {
-  const GetPurchase  ();
+class GetPurchase extends PurchaseBlocEvent {
+  final int planId;
+  final int quantity;
+
+  const GetPurchase({
+    required this.planId,
+    required this.quantity,
+  });
+
+  @override
+  List<Object?> get props => [
+        planId,
+        quantity,
+      ];
 }

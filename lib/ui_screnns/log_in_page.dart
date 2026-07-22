@@ -132,33 +132,38 @@ class _LogInPageState extends State<LogInPage> {
                           ),
                         ),
                         SizedBox(height: 28.h),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.r),
-                            ),
-                            backgroundColor: Colors.red,
-                          ),
-                          onPressed: () {
-                            context.read<LoginBloc>().add(
-                              LoginButtonPressed(
-                                phone: phoneController.text.trim(),
-                                password: passwordController.text.trim(),
+                        SizedBox(
+                          height: 50.h,
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.r),
                               ),
-                            );
-                          },
-                          child:
-                              state is LoginLoading
-                                  ? const CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )
-                                  : Text(
-                                    "LOGIN",
-                                    style: TextStyle(
+                              backgroundColor: Colors.red,
+                            ),
+                            onPressed: () {
+                              context.read<LoginBloc>().add(
+                                LoginButtonPressed(
+                                  phone: phoneController.text.trim(),
+                                  password: passwordController.text.trim(),
+                                ),
+                              );
+                            },
+                            child:
+                                state is LoginLoading
+                                    ? const CircularProgressIndicator(
                                       color: Colors.white,
-                                      fontSize: 16.sp,
+                                    )
+                                    : Text(
+                                      "LOGIN",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                     ),
-                                  ),
+                          ),
                         ),
                       ],
                     ),

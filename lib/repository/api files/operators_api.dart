@@ -7,7 +7,7 @@ class OperatorsApi {
 
   Future<Response> getOperator() async {
     return await apiClient.invokeAPI(
-      "http://easycard.rootsys.in/api/cards/datacard/operators",
+      "https://easycard.rootsys.in/api/cards/data-card/operators",
       "GET",
       null,
     );
