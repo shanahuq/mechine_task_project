@@ -16,7 +16,7 @@ class PurchaseApi {
     });
 
     return await apiClient.invokeAPI(
-      "http://easycard.rootsys.in/api/cards/datacard/orders",
+      "https://easycard.rootsys.in/api/cards/data-card/orders",
       "POST",
       body,
     );

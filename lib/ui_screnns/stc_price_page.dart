@@ -4,11 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mechine_task_project/bloc/purchase/bloc/purchase_bloc_bloc.dart';
 import 'package:mechine_task_project/bloc/purchase/bloc/purchase_bloc_event.dart';
 import 'package:mechine_task_project/bloc/purchase/bloc/purchase_bloc_state.dart';
+import 'package:mechine_task_project/repository/models/plan_model.dart';
 
 class StcPricePage extends StatefulWidget {
-  final int planId;
+  final PlansModel plan;
+  final String card_name;
 
-  const StcPricePage({super.key, required this.planId});
+  const StcPricePage({super.key, required this.card_name, required this.plan});
 
   @override
   State<StcPricePage> createState() => _StcPricePageState();
@@ -49,7 +51,7 @@ class _StcPricePageState extends State<StcPricePage> {
           ),
           centerTitle: true,
           title: Text(
-            'Stc',
+            widget.card_name,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 20.sp,
@@ -69,35 +71,33 @@ class _StcPricePageState extends State<StcPricePage> {
                   padding: EdgeInsets.all(16.w),
                   child: Container(
                     width: double.infinity,
-                    height: 130.h,
+                    padding: EdgeInsets.all(18.w),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16.r),
                       color: Colors.white,
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.all(18.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Balance',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16.sp,
-                              color: Colors.black87,
-                            ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Balance',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16.sp,
+                            color: Colors.black87,
                           ),
-                          Text(
-                            '0.00SR',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 34.sp,
-                              color: Colors.black,
-                            ),
+                        ),
+                        SizedBox(height: 4.h),
+
+                        Text(
+                          '${widget.plan.srp ?? '0.00'} SR',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 34.sp,
+                            color: Colors.black,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -232,10 +232,16 @@ class _StcPricePageState extends State<StcPricePage> {
 
                                           return;
                                         }
-
+                                        debugPrint(
+                                          'PLAN ID: ${widget.plan.id}',
+                                        );
+                                        debugPrint('QUANTITY: $quantity');
+                                        debugPrint('SRP: ${widget.plan.srp}');
+                                        debugPrint('MRP: ${widget.plan.mrp}');
+                                        debugPrint('TYPE: ${widget.plan.type}');
                                         context.read<PurchaseBloc>().add(
                                           GetPurchase(
-                                            planId: widget.planId,
+                                            planId: widget.plan.id!,
                                             quantity: quantity,
                                           ),
                                         );
@@ -273,7 +279,7 @@ class _StcPricePageState extends State<StcPricePage> {
                       style: TextStyle(fontSize: 18.sp, color: Colors.black87),
                     ),
                     Text(
-                      '31.00',
+                      widget.plan.srp ?? '0.00',
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
@@ -292,7 +298,7 @@ class _StcPricePageState extends State<StcPricePage> {
                       style: TextStyle(fontSize: 18.sp, color: Colors.black87),
                     ),
                     Text(
-                      '35.00',
+                      '${widget.plan.mrp ?? '0.00'} SR',
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,

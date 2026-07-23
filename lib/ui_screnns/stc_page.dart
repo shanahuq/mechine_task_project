@@ -7,7 +7,9 @@ import 'package:mechine_task_project/bloc/plans/bloc/plans_bloc_state.dart';
 import 'package:mechine_task_project/ui_screnns/stc_price_page.dart';
 
 class StcPage extends StatefulWidget {
-  const StcPage({super.key});
+  final String id;
+  final String card_Name;
+  const StcPage({required this.id, required this.card_Name, super.key});
 
   @override
   State<StcPage> createState() => _StcPageState();
@@ -50,7 +52,7 @@ class _StcPageState extends State<StcPage> {
   void initState() {
     super.initState();
 
-    context.read<PlansBloc>().add(const GetPlans());
+    context.read<PlansBloc>().add(GetPlans(id: widget.id));
   }
 
   @override
@@ -66,7 +68,7 @@ class _StcPageState extends State<StcPage> {
             child: Icon(Icons.arrow_back, color: Colors.black),
           ),
           title: Text(
-            'Stc',
+            widget.card_Name,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 20.sp,
@@ -114,81 +116,89 @@ class _StcPageState extends State<StcPage> {
                       ),
                       itemBuilder: (context, index) {
                         final plan = plans[index];
+                        debugPrint('IMAGE URL: ${plan.image}');
 
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(18.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(.18),
-                                blurRadius: 12,
-                                spreadRadius: 2,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(12.w),
-                            child: Column(
-                              children: [
-                                Image.network(
-                                  plan.image ?? '',
-                                  height: 120.h,
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return const Icon(
-                                      Icons.image_not_supported,
-                                    );
-                                  },
-                                ),
-
-                                SizedBox(height: 12.h),
-
-                                Text(
-                                  '${plan.srp ?? 0} SR',
-                                  style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-
-                                SizedBox(height: 4.h),
-
-                                Text(
-                                  '${plan.mrp ?? 0} SR',
-                                  style: TextStyle(
-                                    fontSize: 14.sp,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-
-                                const Spacer(),
-
-                                SizedBox(
-                                  width: 100.w,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.yellow,
-                                      foregroundColor: Colors.black,
-                                      elevation: 3,
-                                      shape: const StadiumBorder(),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => StcPricePage(
+                                      plan: plan,
+                                      card_name: widget.card_Name,
                                     ),
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder:
-                                              (context) => StcPricePage(
-                                                planId: plan.id!,
-                                              ),
-                                        ),
-                                      );
-                                    },
-                                    child: const Text("Details"),
-                                  ),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(18.r),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(.18),
+                                  blurRadius: 12,
+                                  spreadRadius: 2,
+                                  offset: const Offset(0, 4),
                                 ),
                               ],
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(12.w),
+                              child: Column(
+                                children: [
+                                  Image.network(
+                                    plan.image ?? '',
+                                    height: 120.h,
+                                    width: double.infinity,
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      debugPrint('IMAGE ERROR: $error');
+                                      return const Icon(
+                                        Icons.image_not_supported,
+                                        size: 50,
+                                      );
+                                    },
+                                  ),
+
+                                  SizedBox(height: 12.h),
+
+                                  Text(
+                                    '${plan.srp ?? 0} SR',
+                                    style: TextStyle(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+
+                                  SizedBox(height: 4.h),
+
+                                  Text(
+                                    '${plan.mrp ?? 0} SR',
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+
+                                  const Spacer(),
+
+                                  SizedBox(
+                                    width: 100.w,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.yellow,
+                                        foregroundColor: Colors.black,
+                                        elevation: 3,
+                                        shape: const StadiumBorder(),
+                                      ),
+                                      onPressed: () {},
+                                      child: const Text("Details"),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );

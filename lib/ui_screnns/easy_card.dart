@@ -288,14 +288,16 @@ class _EasyCardState extends State<EasyCard> {
                             print('Operator ID: ${operator.id}');
                             print('Operator Title: ${operator.title}');
                             print('Operator Image: ${operator.imageLink}');
-                            if (operator.title?.toLowerCase() == 'stc') {
+                  
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => StcPage(),
+                                  builder:
+                                      (context) =>
+                                          StcPage(id: operator.id.toString(),card_Name: operator.title.toString(),),
                                 ),
                               );
-                            }
+                            
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -304,19 +306,32 @@ class _EasyCardState extends State<EasyCard> {
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(12.w),
-                              child: Image.network(
-                                operator.imageLink ?? '',
-                                fit: BoxFit.contain,
-                                errorBuilder: (context, error, stackTrace) {
-                                  print('IMAGE ERROR: $error');
-                                  print('IMAGE URL: ${operator.imageLink}');
+                              child:
+                                  (operator.imageLink != null &&
+                                          operator.imageLink!.trim().isNotEmpty)
+                                      ? Image.network(
+                                        operator.imageLink!,
+                                        fit: BoxFit.contain,
+                                        errorBuilder: (
+                                          context,
+                                          error,
+                                          stackTrace,
+                                        ) {
+                                          debugPrint('IMAGE ERROR: $error');
+                                          debugPrint(
+                                            'IMAGE URL: ${operator.imageLink}',
+                                          );
 
-                                  return const Icon(
-                                    Icons.image_not_supported,
-                                    size: 50,
-                                  );
-                                },
-                              ),
+                                          return const Icon(
+                                            Icons.image_not_supported,
+                                            size: 50,
+                                          );
+                                        },
+                                      )
+                                      : const Icon(
+                                        Icons.image_not_supported,
+                                        size: 50,
+                                      ),
                             ),
                           ),
                         );

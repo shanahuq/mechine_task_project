@@ -7,7 +7,7 @@ class WalletApi {
 
   Future<Response> getWallet() async {
     return await apiClient.invokeAPI(
-      "http://easycard.rootsys.in/api/user/wallet ",
+      "https://easycard.rootsys.in/api/user/wallet ",
       "GET",
       null,
     );

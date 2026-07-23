@@ -5,7 +5,6 @@ import 'package:mechine_task_project/bloc/plans/bloc/plans_bloc_event.dart';
 import 'package:mechine_task_project/bloc/plans/bloc/plans_bloc_state.dart';
 import 'package:mechine_task_project/repository/api%20files/plans_api.dart';
 import 'package:mechine_task_project/repository/models/plan_model.dart';
-import 'package:mechine_task_project/repository/models/purchase_model.dart';
 
 class PlansBloc extends Bloc<PlansBlocEvent, PlansBlocState> {
   final PlansApi plansApi;
@@ -18,7 +17,7 @@ class PlansBloc extends Bloc<PlansBlocEvent, PlansBlocState> {
     emit(PlansLoading());
 
     try {
-      final response = await plansApi.getPlans();
+      final response = await plansApi.getPlans(event.id);
 
       final data = jsonDecode(response.body);
 

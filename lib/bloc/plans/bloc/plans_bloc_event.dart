@@ -8,5 +8,9 @@ abstract class PlansBlocEvent extends Equatable {
 }
 
 class GetPlans  extends PlansBlocEvent {
-  const GetPlans ();
+  final String id;
+
+  const GetPlans (
+    {required this.id}
+  );
 }
