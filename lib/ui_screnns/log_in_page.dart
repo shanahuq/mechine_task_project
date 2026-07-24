@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:mechine_task_project/bloc/log_in/log_in_bloc_bloc.dart';
 import 'package:mechine_task_project/bloc/log_in/log_in_bloc_event.dart';
 import 'package:mechine_task_project/bloc/log_in/log_in_bloc_state.dart';
@@ -16,7 +18,9 @@ class LogInPage extends StatefulWidget {
 class _LogInPageState extends State<LogInPage> {
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
+
   bool isVisible = true;
+
   @override
   void dispose() {
     phoneController.dispose();
@@ -27,8 +31,16 @@ class _LogInPageState extends State<LogInPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is LoginSuccess) {
+          // Save login status
+          final prefs = await SharedPreferences.getInstance();
+
+          await prefs.setBool("isLoggedIn", true);
+
+          if (!context.mounted) return;
+
+          // Go to EasyCard page
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (_) => EasyCard()),
@@ -47,12 +59,12 @@ class _LogInPageState extends State<LogInPage> {
             fit: StackFit.expand,
             children: [
               Image.asset('assets/backgroundimage.jpeg', fit: BoxFit.cover),
+
               Container(color: Colors.black.withOpacity(0.4)),
-              SizedBox(height: 50.h),
 
               Center(
                 child: Transform.translate(
-                  offset: const Offset(0, -100), // Move up by 100 pixels
+                  offset: const Offset(0, -100),
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40.w),
                     child: Column(
@@ -72,7 +84,9 @@ class _LogInPageState extends State<LogInPage> {
                             ),
                           ),
                         ),
+
                         SizedBox(height: 10.h),
+
                         TextField(
                           controller: phoneController,
                           keyboardType: TextInputType.phone,
@@ -94,7 +108,9 @@ class _LogInPageState extends State<LogInPage> {
                             ),
                           ),
                         ),
+
                         SizedBox(height: 15.h),
+
                         TextField(
                           controller: passwordController,
                           obscureText: isVisible,
@@ -105,9 +121,9 @@ class _LogInPageState extends State<LogInPage> {
                             fillColor: Colors.white,
                             prefix: Padding(
                               padding: EdgeInsets.only(left: 2.w, right: 10.w),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.password,
-                                color: const Color.fromARGB(213, 0, 0, 0),
+                                color: Colors.black,
                               ),
                             ),
                             suffixIcon: IconButton(
@@ -121,8 +137,7 @@ class _LogInPageState extends State<LogInPage> {
                                   isVisible = !isVisible;
                                 });
                               },
-
-                              color: const Color.fromARGB(213, 0, 0, 0),
+                              color: Colors.black,
                               iconSize: 18.sp,
                             ),
                             border: OutlineInputBorder(
@@ -131,7 +146,9 @@ class _LogInPageState extends State<LogInPage> {
                             ),
                           ),
                         ),
+
                         SizedBox(height: 28.h),
+
                         SizedBox(
                           height: 50.h,
                           width: double.infinity,
@@ -142,14 +159,18 @@ class _LogInPageState extends State<LogInPage> {
                               ),
                               backgroundColor: Colors.red,
                             ),
-                            onPressed: () {
-                              context.read<LoginBloc>().add(
-                                LoginButtonPressed(
-                                  phone: phoneController.text.trim(),
-                                  password: passwordController.text.trim(),
-                                ),
-                              );
-                            },
+                            onPressed:
+                                state is LoginLoading
+                                    ? null
+                                    : () {
+                                      context.read<LoginBloc>().add(
+                                        LoginButtonPressed(
+                                          phone: phoneController.text.trim(),
+                                          password:
+                                              passwordController.text.trim(),
+                                        ),
+                                      );
+                                    },
                             child:
                                 state is LoginLoading
                                     ? const CircularProgressIndicator(
